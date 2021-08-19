@@ -1,0 +1,6 @@
+title: CESM2 MARBL Diagnostics
+author: MARBL Team
+logo: marbl.jpg
+execute:
+  execute_notebooks: "off"
+

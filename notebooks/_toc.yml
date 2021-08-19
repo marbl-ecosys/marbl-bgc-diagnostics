@@ -1,0 +1,5 @@
+format: jb-book
+root: intro
+chapters:
+- file: 00_Build_Catalog
+- file: 02_Plot_Output
