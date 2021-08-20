@@ -1,0 +1,8 @@
+variables:
+    - TEMP
+    - SALT
+    - FG_CO2
+    - NH4
+    - NO3
+    - SiO3
+  
