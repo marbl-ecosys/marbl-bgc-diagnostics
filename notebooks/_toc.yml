@@ -2,4 +2,5 @@ format: jb-book
 root: intro
 chapters:
 - file: 00_Build_Catalog
+- file: 01_Compute_20yr_mean
 - file: 02_Plot_Output
