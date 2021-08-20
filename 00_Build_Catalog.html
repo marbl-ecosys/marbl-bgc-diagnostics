@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Build the Intake-ESM Catalog &#8212; CESM2 MARBL Diagnostics</title>
+    <title>00 - Build the Intake-ESM Catalog &#8212; CESM2 MARBL Diagnostics</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Do the actual plotting" href="02_Plot_Output.html" />
+    <link rel="next" title="01 - Compute Long Term Averages" href="01_Compute_20yr_mean.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -92,12 +92,17 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Build the Intake-ESM Catalog
+   00 - Build the Intake-ESM Catalog
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_Compute_20yr_mean.html">
+   01 - Compute Long Term Averages
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="02_Plot_Output.html">
-   Do the actual plotting
+   02 - Plot the Comparisons
   </a>
  </li>
 </ul>
@@ -192,7 +197,8 @@
               <div>
                 
   <div class="section" id="build-the-intake-esm-catalog">
-<h1>Build the Intake-ESM Catalog<a class="headerlink" href="#build-the-intake-esm-catalog" title="Permalink to this headline">¶</a></h1>
+<h1>00 - Build the Intake-ESM Catalog<a class="headerlink" href="#build-the-intake-esm-catalog" title="Permalink to this headline">¶</a></h1>
+<p>We can build an <code class="docutils literal notranslate"><span class="pre">intake-esm</span></code> catalog from the history files. During this analysis, we <strong>do not</strong> convert from history to timeseries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distributed</span> <span class="kn">import</span> <span class="n">Client</span>
@@ -380,7 +386,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b1850.f19_g17.validation_nuopc.004&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b1850.f19_g17.validation_nuopc.004_copy2&#39;</span><span class="p">,</span>
          <span class="s1">&#39;b1850.f19_g17.validation_mct.004&#39;</span><span class="p">,</span>
          <span class="s1">&#39;b1850.f19_g17.validation_mct.002&#39;</span><span class="p">]</span>
 </pre></div>
@@ -398,53 +404,55 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.3s finished
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.9s finished
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    0.7s
-[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    2.0s
-[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.8s
-[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    6.1s
-[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    8.6s
-[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   11.6s
-[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   14.9s
-[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   18.7s
-[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   23.0s
-[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   27.7s
-[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   33.0s
-[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   38.5s
-[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   41.8s finished
+[Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    2.5s
+[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    3.8s
+[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    5.9s
+[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:   12.5s
+[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:   16.3s
+[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   19.5s
+[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   23.0s
+[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   27.1s
+[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   33.9s
+[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   38.8s
+[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   44.0s
+[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   49.7s
+[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   53.2s finished
+/glade/work/mgrover/git_repos/ecgtools/ecgtools/builder.py:180: UserWarning: Unable to parse 1 assets/files. A list of these assets can be found in `.invalid_assets` attribute.
+  parsing_func, parsing_func_kwargs
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
 [Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.1s finished
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
 [Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    0.7s
 [Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    2.1s
-[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.9s
-[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    6.3s
-[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    9.1s
-[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   12.3s
-[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   15.7s
-[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   19.4s
-[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   23.2s
-[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   28.3s
-[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   33.1s
-[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   38.4s
-[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   41.7s finished
+[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.8s
+[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    6.5s
+[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    9.2s
+[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   12.4s
+[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   16.1s
+[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   19.9s
+[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   23.7s
+[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   29.1s
+[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   34.3s
+[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   39.9s
+[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   43.6s finished
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.3s finished
+[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.1s finished
 [Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
 [Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    0.6s
-[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    1.8s
-[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.4s
-[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    5.8s
-[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    8.4s
-[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   11.3s
-[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   14.5s
-[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   18.9s
-[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   23.3s
-[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   27.9s
-[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   32.9s
-[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   37.8s
-[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   41.6s finished
+[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    2.0s
+[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.7s
+[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    6.1s
+[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    9.0s
+[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   12.3s
+[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   15.9s
+[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   20.0s
+[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   24.7s
+[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   29.6s
+[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   38.9s
+[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   44.4s
+[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   48.2s finished
 </pre></div>
 </div>
 </div>
@@ -490,248 +498,6 @@
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import ast which helps with parsing the list of variables</span>
-<span class="kn">import</span> <span class="nn">ast</span>
-
-<span class="c1"># Import intake-esm</span>
-<span class="kn">import</span> <span class="nn">intake</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">intake</span><span class="o">.</span><span class="n">open_esm_datastore</span><span class="p">(</span>
-    <span class="s2">&quot;/glade/work/mgrover/cesm-validation-catalog.json&quot;</span><span class="p">,</span>
-    <span class="n">csv_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;converters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;variables&quot;</span><span class="p">:</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">}},</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">col</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><p><strong>None catalog with 8 dataset(s) from 7402 asset(s)</strong>:</p> <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>unique</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>component</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>stream</th>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td>2501</td>
-    </tr>
-    <tr>
-      <th>case</th>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>member_id</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>frequency</th>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>variables</th>
-      <td>545</td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td>7402</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
-    <span class="n">variables</span><span class="o">=</span><span class="s1">&#39;TEMP&#39;</span><span class="p">,</span>
-    <span class="n">stream</span><span class="o">=</span><span class="s1">&#39;pop.h&#39;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">cat</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><p><strong>None catalog with 2 dataset(s) from 2400 asset(s)</strong>:</p> <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>unique</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>component</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>stream</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td>1200</td>
-    </tr>
-    <tr>
-      <th>case</th>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>member_id</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>frequency</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>variables</th>
-      <td>434</td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td>2400</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><p><strong>None catalog with 2 dataset(s) from 2400 asset(s)</strong>:</p> <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>unique</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>component</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>stream</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td>1200</td>
-    </tr>
-    <tr>
-      <th>case</th>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>member_id</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>frequency</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>variables</th>
-      <td>434</td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td>2400</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sub</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">unique</span><span class="p">())[:</span><span class="mi">12</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsets</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">cdf_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;use_cftime&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;chunks&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}})</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--&gt; The keys in the returned dictionary of datasets are constructed as follows:
-	&#39;component/stream/case&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsets</span><span class="p">[</span><span class="s1">&#39;ocn/pop.h/b1850.f19_g17.validation_mct.004&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">TEMP</span><span class="o">.</span><span class="n">isel</span><span class="p">(</span><span class="n">z_t</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -760,7 +526,7 @@
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">Introduction</a>
-    <a class='right-next' id="next-link" href="02_Plot_Output.html" title="next page">Do the actual plotting</a>
+    <a class='right-next' id="next-link" href="01_Compute_20yr_mean.html" title="next page">01 - Compute Long Term Averages</a>
 
         </div>
         
