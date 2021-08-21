@@ -4,3 +4,11 @@ chapters:
 - file: 00_Build_Catalog
 - file: 01_Compute_20yr_mean
 - file: 02_Plot_Output
+  sections:
+  - file: physics_variables
+  - file: physics_fluxes
+  - file: bgc_0
+  - file: bgc_1
+  - file: bgc_2
+  - file: bgc_3
+  
