@@ -1,7 +1,28 @@
 variables:
     - TEMP
     - SALT
+    - HMXL
+    - BSF
+    - IFRAC
+    - SHF
+    - SFWF
+    - SHF_QSW
     - FG_CO2
+    - PO4
+    - photoC_TOT_zint
+    - photoC_sp_zint
+    - photoC_diat_zint
+    - photoC_diaz_zint
+    - POC_FLUX_100m
+    - diaz_Nfix
+    - SiO2_PROD
+    - CaCO3_FLUX_100m
+    - SiO2_FLUX_100m
+    - ALK
+    - DIC
+    - O2
+    - DOC
+    - DOCr
     - NH4
     - NO3
     - SiO3
