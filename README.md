@@ -1,2 +1,2 @@
-# analysis_project_template
-Template for analysis repository
+# MARBL Diagnostic Examples
+This repository hosts examples of MARBL related diagnostics
