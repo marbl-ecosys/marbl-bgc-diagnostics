@@ -2,6 +2,22 @@ name: analysis
 channels:
     - conda-forge
     - nodefaults
+    - pyviz
 dependencies:
     - bokeh
     - bottleneck
+    - distributed
+    - dask
+    - ncar_jobqueue
+    - xarray
+    - pyyaml
+    - intake_esm
+    - ast
+    - holoviews
+    - hvplot
+    - datashader
+    - panel
+    - matplotlib
+    - pip
+    - pip:
+      - ecgtools
