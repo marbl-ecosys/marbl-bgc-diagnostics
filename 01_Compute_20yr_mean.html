@@ -471,12 +471,12 @@ Hosting the HTTP server on port 38696 instead
 <p>In the first notebook, we created a an <code class="docutils literal notranslate"><span class="pre">intake-esm</span></code> catalog which provides a means of accessing our data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">intake</span><span class="o">.</span><span class="n">open_esm_datastore</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_catalog</span> <span class="o">=</span> <span class="n">intake</span><span class="o">.</span><span class="n">open_esm_datastore</span><span class="p">(</span>
     <span class="s2">&quot;/glade/work/mgrover/cesm-validation-catalog.json&quot;</span><span class="p">,</span>
     <span class="n">csv_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;converters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;variables&quot;</span><span class="p">:</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">}},</span>
     <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">col</span>
+<span class="n">data_catalog</span>
 </pre></div>
 </div>
 </div>
@@ -541,10 +541,10 @@ Hosting the HTTP server on port 38696 instead
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_catalog_subset</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
     <span class="n">frequency</span><span class="o">=</span><span class="s1">&#39;month_1&#39;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">cat</span>
+<span class="n">data_catalog_subset</span>
 </pre></div>
 </div>
 </div>
@@ -618,7 +618,7 @@ Hosting the HTTP server on port 38696 instead
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sub</span> <span class="o">=</span> <span class="n">cat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">240</span><span class="p">:])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_catalog_subset</span> <span class="o">=</span> <span class="n">data_catalog_subset</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">dates</span><span class="p">[</span><span class="o">-</span><span class="mi">240</span><span class="p">:])</span>
 </pre></div>
 </div>
 </div>
@@ -628,7 +628,7 @@ Hosting the HTTP server on port 38696 instead
 <h3>Read in our dataset using <code class="docutils literal notranslate"><span class="pre">to_dataset_dict()</span></code><a class="headerlink" href="#read-in-our-dataset-using-to-dataset-dict" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsets</span> <span class="o">=</span> <span class="n">sub</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">cdf_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;use_cftime&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;chunks&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">}})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsets</span> <span class="o">=</span> <span class="n">data_catalog_subset</span><span class="o">.</span><span class="n">to_dataset_dict</span><span class="p">(</span><span class="n">cdf_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;use_cftime&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;chunks&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">}})</span>
 </pre></div>
 </div>
 </div>
