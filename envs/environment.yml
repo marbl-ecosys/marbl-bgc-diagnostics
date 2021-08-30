@@ -1,4 +1,4 @@
-name: analysis
+name: bgc-diagnostics-dev
 channels:
     - conda-forge
     - nodefaults
@@ -8,16 +8,16 @@ dependencies:
     - bottleneck
     - distributed
     - dask
-    - ncar_jobqueue
+    - ncar-jobqueue
     - xarray
     - pyyaml
-    - intake_esm
-    - ast
+    - intake-esm
     - holoviews
     - hvplot
     - datashader
     - panel
     - matplotlib
+    - jupyterlab
     - pip
     - pip:
       - ecgtools
