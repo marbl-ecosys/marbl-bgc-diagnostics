@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction &#8212; CESM2 MARBL Diagnostics</title>
+    <title>Case Overview &#8212; CESM2 MARBL Diagnostics</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -84,7 +84,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1 current">
   <a class="reference internal" href="#">
-   Introduction
+   Case Overview
   </a>
  </li>
 </ul>
@@ -232,16 +232,278 @@
         
               <div>
                 
-  <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>This is an overview of the cases used in this diagnostics workflow</p>
+  <div class="section" id="case-overview">
+<h1>Case Overview<a class="headerlink" href="#case-overview" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">intake</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/hires_catalog.csv&#39;</span><span class="p">)</span>
+<span class="c1"># Create Digraph object - use the left to right orientation instead of vertical</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="n">graph_attr</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rankdir&#39;</span><span class="p">:</span> <span class="s1">&#39;LR&#39;</span><span class="p">})</span>
+
+<span class="c1"># Save the catalog as a pdf</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span>
+
+<span class="c1"># Start counting at one for node numbers</span>
+<span class="n">num_node</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Loop through the different cases</span>
+<span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">case</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">case_i</span> <span class="o">=</span> <span class="n">num_node</span>
+    <span class="n">dot</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">case_i</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">case</span><span class="p">)</span>
+    <span class="n">num_node</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Loop through the different components in each case</span>
+    <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="n">case</span><span class="p">]</span><span class="o">.</span><span class="n">component</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="n">comp_i</span> <span class="o">=</span> <span class="n">num_node</span>
+        <span class="n">dot</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">comp_i</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="n">component</span><span class="p">)</span>
+        <span class="n">dot</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">case_i</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">comp_i</span><span class="p">))</span>
+        <span class="n">num_node</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Loop through the frequency in each component within each experiment</span>
+        <span class="k">for</span> <span class="n">frequency</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="n">case</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">component</span> <span class="o">==</span> <span class="n">component</span><span class="p">)]</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+            <span class="n">freq_i</span> <span class="o">=</span> <span class="n">num_node</span>
+
+            <span class="c1"># Pull out the the stream information</span>
+            <span class="n">stream</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">case</span> <span class="o">==</span> <span class="n">case</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">component</span> <span class="o">==</span> <span class="n">component</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">frequency</span> <span class="o">==</span> <span class="n">frequency</span><span class="p">)</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># Add both stream and frequency information to these bubbles</span>
+            <span class="n">dot</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">freq_i</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;stream: </span><span class="si">{</span><span class="n">stream</span><span class="si">}</span><span class="s1"> </span><span class="se">\n</span><span class="s1"> frequency: </span><span class="si">{</span><span class="n">frequency</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">dot</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">comp_i</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">freq_i</span><span class="p">))</span>
+            <span class="n">num_node</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">comp_i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">case_i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">dot</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/intro_1_0.svg" src="_images/intro_1_0.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>component</th>
+      <th>stream</th>
+      <th>case</th>
+      <th>member_id</th>
+      <th>variable</th>
+      <th>start_time</th>
+      <th>end_time</th>
+      <th>time_range</th>
+      <th>long_name</th>
+      <th>units</th>
+      <th>vertical_levels</th>
+      <th>frequency</th>
+      <th>path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ocn</td>
+      <td>pop.h</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>VVEL</td>
+      <td>0022-01</td>
+      <td>0022-12</td>
+      <td>002201-002212</td>
+      <td>Velocity in grid-y direction</td>
+      <td>centimeter/s</td>
+      <td>1.0</td>
+      <td>month_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ocn</td>
+      <td>pop.h</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>Jint_100m_ALK_ALT_CO2</td>
+      <td>0003-01</td>
+      <td>0003-12</td>
+      <td>000301-000312</td>
+      <td>Alkalinity, Alternative CO2 Source Sink Term V...</td>
+      <td>meq/m^3 cm/s</td>
+      <td>1.0</td>
+      <td>month_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ocn</td>
+      <td>pop.h</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>POC_PROD</td>
+      <td>0011-01</td>
+      <td>0011-12</td>
+      <td>001101-001112</td>
+      <td>POC Production</td>
+      <td>mmol/m^3/s</td>
+      <td>1.0</td>
+      <td>month_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ocn</td>
+      <td>pop.h</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>ALK_ALT_CO2</td>
+      <td>0033-01</td>
+      <td>0033-12</td>
+      <td>003301-003312</td>
+      <td>Alkalinity, Alternative CO2</td>
+      <td>meq/m^3</td>
+      <td>1.0</td>
+      <td>month_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ocn</td>
+      <td>pop.h</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>CaCO3_PROD</td>
+      <td>0029-01</td>
+      <td>0029-12</td>
+      <td>002901-002912</td>
+      <td>CaCO3 Production</td>
+      <td>mmol/m^3/s</td>
+      <td>1.0</td>
+      <td>month_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>16023</th>
+      <td>ice</td>
+      <td>cice.h1</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>dvidtd_d</td>
+      <td>0029-01-01</td>
+      <td>0029-12-31</td>
+      <td>00290101-00291231</td>
+      <td>volume tendency dynamics</td>
+      <td>cm/day</td>
+      <td>1.0</td>
+      <td>day_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>16024</th>
+      <td>ice</td>
+      <td>cice.h1</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>hi_d</td>
+      <td>0007-01-01</td>
+      <td>0007-12-31</td>
+      <td>00070101-00071231</td>
+      <td>grid cell mean ice thickness</td>
+      <td>m</td>
+      <td>1.0</td>
+      <td>day_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>16025</th>
+      <td>ice</td>
+      <td>cice.h1</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>hi_d</td>
+      <td>0034-01-01</td>
+      <td>0034-12-31</td>
+      <td>00340101-00341231</td>
+      <td>grid cell mean ice thickness</td>
+      <td>m</td>
+      <td>1.0</td>
+      <td>day_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>16026</th>
+      <td>ice</td>
+      <td>cice.h1</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>dvidtt_d</td>
+      <td>0034-01-01</td>
+      <td>0034-12-31</td>
+      <td>00340101-00341231</td>
+      <td>volume tendency thermo</td>
+      <td>cm/day</td>
+      <td>1.0</td>
+      <td>day_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+    <tr>
+      <th>16027</th>
+      <td>ice</td>
+      <td>cice.h1</td>
+      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
+      <td>4.0</td>
+      <td>dvidtt_d</td>
+      <td>0031-01-01</td>
+      <td>0031-12-31</td>
+      <td>00310101-00311231</td>
+      <td>volume tendency thermo</td>
+      <td>cm/day</td>
+      <td>1.0</td>
+      <td>day_1</td>
+      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+    </tr>
+  </tbody>
+</table>
+<p>16028 rows × 13 columns</p>
+</div></div></div>
 </div>
 <div class="toctree-wrapper compound">
 </div>
@@ -256,16 +518,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "conda-env-miniconda3-obs-validation-dev-py"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "conda-env-miniconda3-obs-validation-dev-py",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'conda-env-miniconda3-obs-validation-dev-py'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
