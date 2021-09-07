@@ -1,0 +1,64 @@
+{
+  "catalog_file": "cesm-validation-catalog.csv",
+  "attributes": [
+    {
+      "column_name": "component",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "stream",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "date",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "case",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "member_id",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "frequency",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "variables",
+      "vocabulary": ""
+    },
+    {
+      "column_name": "path",
+      "vocabulary": ""
+    }
+  ],
+  "assets": {
+    "column_name": "path",
+    "format": "netcdf"
+  },
+  "aggregation_control": {
+    "variable_column_name": "variables",
+    "groupby_attrs": [
+      "component",
+      "stream",
+      "case"
+    ],
+    "aggregations": [
+      {
+        "type": "join_existing",
+        "attribute_name": "date",
+        "options": {
+          "dim": "time",
+          "coords": "minimal",
+          "compat": "override"
+        }
+      }
+    ]
+  },
+  "esmcat_version": "0.0.1",
+  "id": null,
+  "description": null,
+  "last_updated": "2021-08-20T15:16:03+00:00"
+}
