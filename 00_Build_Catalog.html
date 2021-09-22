@@ -282,29 +282,6 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">get_directories</span><span class="p">()</span>
-<span class="c1">#b.dirs = b.dirs[0]</span>
-<span class="n">b</span><span class="o">.</span><span class="n">get_filelist</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;list&#39;&gt;
-[PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;)]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 40 concurrent workers.
-[Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.7s remaining:    0.0s
-[Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.7s finished
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Builder(root_path=[PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;)], extension=&#39;.nc&#39;, depth=1, exclude_patterns=[&#39;*/tseries/*&#39;, &#39;*/rest/*&#39;], njobs=-1)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">parse_cesm_history</span><span class="p">)</span>
 </pre></div>
 </div>
