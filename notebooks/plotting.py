@@ -8,6 +8,8 @@ from holoviews.operation.datashader import regrid, shade, datashade, rasterize
 import matplotlib.pyplot as plt
 import panel as pn
 import numpy as np
+from config import analysis_config
+
 
 def plot_interactive(ds, variable, cmap='magma', vmin=None, vmax=None):
     """Plots an interactive plot using holoviews"""
@@ -27,7 +29,7 @@ def plot_interactive(ds, variable, cmap='magma', vmin=None, vmax=None):
         datashade_obj = rasterize(quadmesh, precompute=True, cmap=plt.cm.RdBu_r).opts(colorbar=True, width=600, height=400, cmap=cmap, tools=['hover'])
     return datashade_obj.relabel(f'{ds.title}')
 
-def plot_comparison(ds, case_to_compare, variable, baseline = 'b1850.f19_g17.validation_mct.004', first_case=False):
+def plot_comparison(ds, case_to_compare, variable, baseline = analysis_config['reference_case_name'], first_case=False):
     """Plot a comparison between cases"""
     
     ds2 = ds.sel(case=baseline)
@@ -69,3 +71,14 @@ def create_cmap(levs):
                                                           (1, 0, 0)],
                                                      N=len(levs)-1,
                                                     )
+
+def plot_variable(ds, variable):
+    plots = []
+    for case in analysis_config['compare_case_name']:
+        plots.append(plot_comparison(ds, case, variable))
+        
+    out = pn.Column()
+    for plot in plots:
+        out+=plot
+    return out
+    
