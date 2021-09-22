@@ -1,3 +1,21 @@
+reference_case_name: b1850.f19_g17.validation_mct.004
+
+compare_case_name:
+    - b1850.f19_g17.validation_mct.002
+    - b1850.f19_g17.validation_nuopc.004
+
+case_data_paths:
+     - /glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist
+     - /glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist
+     - /glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist
+
+cesm_file_format:
+     - hist
+     
+catalog_csv: ../data/cesm-validation-catalog.csv
+    
+catalog_json: ../data/cesm-validation-catalog.json
+
 variables:
     - TEMP
     - SALT
