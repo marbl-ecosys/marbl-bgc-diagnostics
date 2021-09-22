@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e2363ea40746bee74734a24ffefccd78.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -70,6 +70,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="_static/marbl_pic.jpeg" class="logo" alt="logo">
       
@@ -238,165 +242,9 @@
 <p>We can build an <code class="docutils literal notranslate"><span class="pre">intake-esm</span></code> catalog from the history files. During this analysis, we <strong>do not</strong> convert from history to timeseries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distributed</span> <span class="kn">import</span> <span class="n">Client</span>
-<span class="kn">from</span> <span class="nn">ncar_jobqueue</span> <span class="kn">import</span> <span class="n">NCARCluster</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/glade/u/home/mgrover/miniconda3/envs/hires-marbl/lib/python3.7/site-packages/dask_jobqueue/core.py:19: FutureWarning: format_bytes is deprecated and will be removed in a future release. Please use dask.utils.format_bytes instead.
-  from distributed.utils import format_bytes, parse_bytes, tmpfile
-/glade/u/home/mgrover/miniconda3/envs/hires-marbl/lib/python3.7/site-packages/dask_jobqueue/core.py:19: FutureWarning: parse_bytes is deprecated and will be removed in a future release. Please use dask.utils.parse_bytes instead.
-  from distributed.utils import format_bytes, parse_bytes, tmpfile
-/glade/u/home/mgrover/miniconda3/envs/hires-marbl/lib/python3.7/site-packages/dask_jobqueue/htcondor.py:6: FutureWarning: parse_bytes is deprecated and will be removed in a future release. Please use dask.utils.parse_bytes instead.
-  from distributed.utils import parse_bytes
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cluster</span> <span class="o">=</span> <span class="n">NCARCluster</span><span class="p">()</span>
-<span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">client</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-    <div>
-        <div style="
-            width: 24px;
-            height: 24px;
-            background-color: #e1e1e1;
-            border: 3px solid #9D9D9D;
-            border-radius: 5px;
-            position: absolute;"> </div>
-        <div style="margin-left: 48px;">
-            <h3 style="margin-bottom: 0px;">Client</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Client-ff57e538-0065-11ec-b574-2b7c8ec4b9bd</p>
-            <table style="width: 100%; text-align: left;">
-
-        <tr>
-            <td style="text-align: left;"><strong>Connection method:</strong> Cluster object</td>
-            <td style="text-align: left;"><strong>Cluster type:</strong> PBSCluster</td>
-        </tr>
-
-        <tr>
-            <td style="text-align: left;">
-                <strong>Dashboard: </strong>
-                <a href="https://jupyterhub.hpc.ucar.edu/stable/user/mgrover/proxy/8787/status">https://jupyterhub.hpc.ucar.edu/stable/user/mgrover/proxy/8787/status</a>
-            </td>
-            <td style="text-align: left;"></td>
-        </tr>
-
-            </table>
-
-        <details>
-        <summary style="margin-bottom: 20px;"><h3 style="display: inline;">Cluster Info</h3></summary>
-
-    <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-mod-trusted jp-OutputArea-output">
-        <div style="
-            width: 24px;
-            height: 24px;
-            background-color: #e1e1e1;
-            border: 3px solid #9D9D9D;
-            border-radius: 5px;
-            position: absolute;"> </div>
-        <div style="margin-left: 48px;">
-            <h3 style="margin-bottom: 0px; margin-top: 0px;">PBSCluster</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">b939f79e</p>
-            <table style="width: 100%; text-align: left;">
-
-    <tr>
-        <td style="text-align: left;">
-            <strong>Dashboard:</strong> <a href="https://jupyterhub.hpc.ucar.edu/stable/user/mgrover/proxy/8787/status">https://jupyterhub.hpc.ucar.edu/stable/user/mgrover/proxy/8787/status</a>
-        </td>
-        <td style="text-align: left;"><strong>Workers:</strong> 0</td>
-    </tr>
-    <tr>
-        <td style="text-align: left;">
-            <strong>Total threads:</strong>
-            0
-        </td>
-        <td style="text-align: left;">
-            <strong>Total memory:</strong>
-            0 B
-        </td>
-    </tr>
-
-            </table>
-            <details>
-            <summary style="margin-bottom: 20px;"><h3 style="display: inline;">Scheduler Info</h3></summary>
-
-<div style="">
-
-    <div>
-        <div style="
-            width: 24px;
-            height: 24px;
-            background-color: #FFF7E5;
-            border: 3px solid #FF6132;
-            border-radius: 5px;
-            position: absolute;"> </div>
-        <div style="margin-left: 48px;">
-            <h3 style="margin-bottom: 0px;">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-049adc67-238a-4dd5-8239-68aaa1244f94</p>
-            <table style="width: 100%; text-align: left;">
-                <tr>
-                    <td style="text-align: left;"><strong>Comm:</strong> tcp://10.12.206.9:43930</td>
-                    <td style="text-align: left;"><strong>Workers:</strong> 0</td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">
-                        <strong>Dashboard:</strong> <a href="https://jupyterhub.hpc.ucar.edu/stable/user/mgrover/proxy/8787/status">https://jupyterhub.hpc.ucar.edu/stable/user/mgrover/proxy/8787/status</a>
-                    </td>
-                    <td style="text-align: left;">
-                        <strong>Total threads:</strong>
-                        0
-                    </td>
-                </tr>
-                <tr>
-                    <td style="text-align: left;">
-                        <strong>Started:</strong>
-                        Just now
-                    </td>
-                    <td style="text-align: left;">
-                        <strong>Total memory:</strong>
-                        0 B
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <details style="margin-left: 48px;">
-    <summary style="margin-bottom: 20px;"><h3 style="display: inline;">Workers</h3></summary>
-
-    </details>
-</div>
-
-            </details>
-        </div>
-    </div>
-
-        </details>
-
-        </div>
-    </div>
-</div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ecgtools</span> <span class="kn">import</span> <span class="n">Builder</span>
 <span class="kn">from</span> <span class="nn">ecgtools.parsers.cesm</span> <span class="kn">import</span> <span class="n">parse_cesm_history</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">analysis_config</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
@@ -404,99 +252,100 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_catalog</span><span class="p">(</span><span class="n">case</span><span class="p">):</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span>
-        <span class="c1"># Directory with the output</span>
-        <span class="sa">f</span><span class="s2">&quot;/glade/scratch/hannay/archive/</span><span class="si">{</span><span class="n">case</span><span class="si">}</span><span class="s2">/ocn/hist&quot;</span><span class="p">,</span>
-        <span class="c1"># Depth of 1 since we are sending it to the case output directory</span>
-        <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="c1"># Exclude the timeseries and restart directories</span>
-        <span class="n">exclude_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*/tseries/*&quot;</span><span class="p">,</span> <span class="s2">&quot;*/rest/*&quot;</span><span class="p">],</span>
-        <span class="c1"># Number of jobs to execute - should be equal to # threads you are using</span>
-        <span class="n">njobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">parse_cesm_history</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b1850.f19_g17.validation_nuopc.004_copy2&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;b1850.f19_g17.validation_mct.004&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;b1850.f19_g17.validation_mct.002&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">case</span> <span class="ow">in</span> <span class="n">cases</span><span class="p">:</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">build_catalog</span><span class="p">(</span><span class="n">case</span><span class="p">)</span>
-    <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">analysis_config</span><span class="p">[</span><span class="s1">&#39;case_data_paths&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.9s finished
-[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    2.5s
-[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    3.8s
-[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    5.9s
-[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:   12.5s
-[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:   16.3s
-[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   19.5s
-[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   23.0s
-[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   27.1s
-[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   33.9s
-[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   38.8s
-[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   44.0s
-[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   49.7s
-[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   53.2s finished
-/glade/work/mgrover/git_repos/ecgtools/ecgtools/builder.py:180: UserWarning: Unable to parse 1 assets/files. A list of these assets can be found in `.invalid_assets` attribute.
-  parsing_func, parsing_func_kwargs
-[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.1s finished
-[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    0.7s
-[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    2.1s
-[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.8s
-[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    6.5s
-[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    9.2s
-[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   12.4s
-[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   16.1s
-[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   19.9s
-[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   23.7s
-[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   29.1s
-[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   34.3s
-[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   39.9s
-[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   43.6s finished
-[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done   1 out of   1 | elapsed:    0.1s finished
-[Parallel(n_jobs=-1)]: Using backend LokyBackend with 72 concurrent workers.
-[Parallel(n_jobs=-1)]: Done  18 tasks      | elapsed:    0.6s
-[Parallel(n_jobs=-1)]: Done 144 tasks      | elapsed:    2.0s
-[Parallel(n_jobs=-1)]: Done 306 tasks      | elapsed:    3.7s
-[Parallel(n_jobs=-1)]: Done 504 tasks      | elapsed:    6.1s
-[Parallel(n_jobs=-1)]: Done 738 tasks      | elapsed:    9.0s
-[Parallel(n_jobs=-1)]: Done 1008 tasks      | elapsed:   12.3s
-[Parallel(n_jobs=-1)]: Done 1314 tasks      | elapsed:   15.9s
-[Parallel(n_jobs=-1)]: Done 1656 tasks      | elapsed:   20.0s
-[Parallel(n_jobs=-1)]: Done 2034 tasks      | elapsed:   24.7s
-[Parallel(n_jobs=-1)]: Done 2448 tasks      | elapsed:   29.6s
-[Parallel(n_jobs=-1)]: Done 2898 tasks      | elapsed:   38.9s
-[Parallel(n_jobs=-1)]: Done 3384 tasks      | elapsed:   44.4s
-[Parallel(n_jobs=-1)]: Done 3702 out of 3702 | elapsed:   48.2s finished
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;,
+ &#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;,
+ &#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span>
+    <span class="c1"># Directories with the output</span>
+    <span class="n">analysis_config</span><span class="p">[</span><span class="s1">&#39;case_data_paths&#39;</span><span class="p">],</span>
+    <span class="c1"># Depth of 1 since we are sending it to the case output directory</span>
+    <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="c1"># Exclude the timeseries and restart directories</span>
+    <span class="n">exclude_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*/tseries/*&quot;</span><span class="p">,</span> <span class="s2">&quot;*/rest/*&quot;</span><span class="p">],</span>
+    <span class="c1"># Number of jobs to execute - should be equal to # threads you are using</span>
+    <span class="n">njobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">get_directories</span><span class="p">()</span>
+<span class="c1">#b.dirs = b.dirs[0]</span>
+<span class="n">b</span><span class="o">.</span><span class="n">get_filelist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;list&#39;&gt;
+[PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;)]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 40 concurrent workers.
+[Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.7s remaining:    0.0s
+[Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.7s finished
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Builder(root_path=[PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;)], extension=&#39;.nc&#39;, depth=1, exclude_patterns=[&#39;*/tseries/*&#39;, &#39;*/rest/*&#39;], njobs=-1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">parse_cesm_history</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;list&#39;&gt;
+[PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;)]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 40 concurrent workers.
+[Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.2s remaining:    0.0s
+[Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.2s finished
+[Parallel(n_jobs=-1)]: Using backend LokyBackend with 40 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  82 tasks      | elapsed:    6.8s
+[Parallel(n_jobs=-1)]: Done 208 tasks      | elapsed:   10.0s
+[Parallel(n_jobs=-1)]: Done 370 tasks      | elapsed:   14.2s
+[Parallel(n_jobs=-1)]: Done 568 tasks      | elapsed:   19.4s
+[Parallel(n_jobs=-1)]: Done 802 tasks      | elapsed:   25.5s
+[Parallel(n_jobs=-1)]: Done 1072 tasks      | elapsed:   32.4s
+[Parallel(n_jobs=-1)]: Done 1378 tasks      | elapsed:   39.7s
+[Parallel(n_jobs=-1)]: Done 1720 tasks      | elapsed:   48.1s
+[Parallel(n_jobs=-1)]: Done 2098 tasks      | elapsed:   57.4s
+[Parallel(n_jobs=-1)]: Done 2512 tasks      | elapsed:  1.2min
+[Parallel(n_jobs=-1)]: Done 2962 tasks      | elapsed:  1.4min
+[Parallel(n_jobs=-1)]: Done 3448 tasks      | elapsed:  1.5min
+[Parallel(n_jobs=-1)]: Done 3970 tasks      | elapsed:  1.7min
+[Parallel(n_jobs=-1)]: Done 4528 tasks      | elapsed:  1.9min
+[Parallel(n_jobs=-1)]: Done 5122 tasks      | elapsed:  2.2min
+[Parallel(n_jobs=-1)]: Done 5752 tasks      | elapsed:  2.5min
+[Parallel(n_jobs=-1)]: Done 6418 tasks      | elapsed:  2.8min
+[Parallel(n_jobs=-1)]: Done 7120 tasks      | elapsed:  2.9min
+[Parallel(n_jobs=-1)]: Done 7858 tasks      | elapsed:  3.2min
+[Parallel(n_jobs=-1)]: Done 8632 tasks      | elapsed:  3.5min
+[Parallel(n_jobs=-1)]: Done 9442 tasks      | elapsed:  3.9min
+[Parallel(n_jobs=-1)]: Done 10288 tasks      | elapsed:  4.1min
+[Parallel(n_jobs=-1)]: Done 11106 out of 11106 | elapsed:  4.2min finished
+/glade/work/mgrover/git_repos/ecgtools/ecgtools/builder.py:193: UserWarning: Unable to parse 3 assets/files. A list of these assets can be found in `.invalid_assets` attribute.
+  parsing_func, parsing_func_kwargs
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Builder(root_path=[PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.004/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_mct.002/ocn/hist&#39;), PosixPath(&#39;/glade/scratch/hannay/archive/b1850.f19_g17.validation_nuopc.004_copy2/ocn/hist&#39;)], extension=&#39;.nc&#39;, depth=1, exclude_patterns=[&#39;*/tseries/*&#39;, &#39;*/rest/*&#39;], njobs=-1)
 </pre></div>
 </div>
 </div>
@@ -505,7 +354,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
     <span class="c1"># File path - could save as .csv (uncompressed csv) or .csv.gz (compressed csv)</span>
-    <span class="s2">&quot;/glade/work/mgrover/cesm-validation-catalog.csv&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;../data/cesm-validation-catalog.csv&quot;</span><span class="p">,</span>
     <span class="c1"># Column name including filepath</span>
     <span class="n">path_column_name</span><span class="o">=</span><span class="s1">&#39;path&#39;</span><span class="p">,</span>
     <span class="c1"># Column name including variables</span>
@@ -527,10 +376,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saved catalog location: /glade/work/mgrover/cesm-validation-catalog.json and /glade/work/mgrover/cesm-validation-catalog.csv
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saved catalog location: ../data/cesm-validation-catalog.json and ../data/cesm-validation-catalog.csv
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/glade/u/home/mgrover/miniconda3/envs/hires-marbl/lib/python3.7/site-packages/ipykernel_launcher.py:17: UserWarning: Unable to parse 1 assets/files. A list of these assets can be found in /glade/work/mgrover/invalid_assets_cesm-validation-catalog.csv.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/glade/work/mgrover/miniconda3/envs/cesm2-marbl/lib/python3.7/site-packages/ipykernel_launcher.py:17: UserWarning: Unable to parse 3 assets/files. A list of these assets can be found in ../data/invalid_assets_cesm-validation-catalog.csv.
 </pre></div>
 </div>
 </div>
@@ -546,16 +395,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "conda-env-miniconda3-hires-marbl-py"
+            mode: "conda-env-miniconda3-cesm2-marbl-py"
         },
         kernelOptions: {
-            kernelName: "conda-env-miniconda3-hires-marbl-py",
+            kernelName: "conda-env-miniconda3-cesm2-marbl-py",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'conda-env-miniconda3-hires-marbl-py'</script>
+    <script>kernelName = 'conda-env-miniconda3-cesm2-marbl-py'</script>
 
               </div>
               
@@ -589,7 +438,7 @@
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
