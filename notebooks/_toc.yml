@@ -7,10 +7,8 @@ parts:
           - file: 01_Compute_20yr_mean
     - caption: Physics Plots
       chapters:
-          - file: physics_SHF_QSW.ipynb
-            title: SHF QSW
+          - glob: physics_*
     - caption: Biogeochemistry Plots
       chapters:
-          - file: biogeochemistry_O2.ipynb
-            title: O2
+          - glob: biogeochemistry_*
   
