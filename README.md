@@ -23,6 +23,7 @@ conda activate bgc-diagnostics-dev
     * It is recommoned that run the following notebooks **first**:
       * `00_Build_Catalog.ipynb`
       * `01_Compute_20yr_mean.ipynb`
+      * `intro.ipynb`
   - Once you run those two notebooks, ssh onto Casper/Cheyenne, activate your environment, and run the following from the project root directory
   ```
   python notebooks/generate_plotting_notebooks.py
@@ -41,7 +42,7 @@ conda activate bgc-diagnostics-dev
 ## What if I want to look at more variables?
 Within the `notebooks` directory, there is a config file (`analysis_config.yml`) which includes a list of ocean variables to analyze. You can add more variables to this list (subsitute the variable name in `YOUR_NEW_VARIABLE`)
 
-```
+```yaml
 variables:
   - TEMP
   - YOUR_NEW_VARIABLE
@@ -66,3 +67,14 @@ case_data_paths:
 ```
 
 Where the casenames (`reference_case_name` and `compare_case_name`) are the cases you are looking to compare, and the `case_data_paths` are which directories to use when building the [`intake-esm catalog`](https://intake-esm.readthedocs.io/en/latest/) using [`ecgtools`](https://ecgtools.readthedocs.io/en/latest/)!
+
+## Where is the Catalog Saved to?
+
+The data catalog (generated in the `00_Build_Catalog.ipynb` notebook) is output to the respective csv/json specified in the `analysis_config.yml` file (default is the `/data` directory), as shown below:
+
+```yaml
+catalog_csv: ../data/cesm-validation-catalog.csv
+    
+catalog_json: ../data/cesm-validation-catalog.json
+```
+
