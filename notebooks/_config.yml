@@ -4,5 +4,5 @@ logo: marbl_pic.jpeg
 execute:
   execute_notebooks: "off"
 repository:
-  url: https://github.com/marbl-bgc-diagnostics
+  url: https://github.com/marbl-ecosys/marbl-bgc-diagnostics
 
