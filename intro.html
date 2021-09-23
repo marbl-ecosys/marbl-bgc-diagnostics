@@ -340,6 +340,24 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#catalog-visualization">
+   Catalog Visualization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#catalog-table">
+   Catalog Table
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -350,11 +368,15 @@
                 
   <div class="section" id="case-overview">
 <h1>Case Overview<a class="headerlink" href="#case-overview" title="Permalink to this headline">¶</a></h1>
-<div class="cell docutils container">
+<div class="section" id="catalog-visualization">
+<h2>Catalog Visualization<a class="headerlink" href="#catalog-visualization" title="Permalink to this headline">¶</a></h2>
+<div class="cell tag_hide tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Digraph</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/hires_catalog.csv&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="kn">import</span> <span class="n">analysis_config</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">analysis_config</span><span class="p">[</span><span class="s1">&#39;catalog_csv&#39;</span><span class="p">])</span>
 <span class="c1"># Create Digraph object - use the left to right orientation instead of vertical</span>
 <span class="n">dot</span> <span class="o">=</span> <span class="n">Digraph</span><span class="p">(</span><span class="n">graph_attr</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rankdir&#39;</span><span class="p">:</span> <span class="s1">&#39;LR&#39;</span><span class="p">})</span>
 
@@ -397,9 +419,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/intro_1_0.svg" src="_images/intro_1_0.svg" /></div>
+<img alt="_images/intro_2_0.svg" src="_images/intro_2_0.svg" /></div>
 </div>
-<div class="cell docutils container">
+</div>
+<div class="section" id="catalog-table">
+<h2>Catalog Table<a class="headerlink" href="#catalog-table" title="Permalink to this headline">¶</a></h2>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
 </pre></div>
@@ -426,16 +451,11 @@
       <th></th>
       <th>component</th>
       <th>stream</th>
+      <th>date</th>
       <th>case</th>
       <th>member_id</th>
-      <th>variable</th>
-      <th>start_time</th>
-      <th>end_time</th>
-      <th>time_range</th>
-      <th>long_name</th>
-      <th>units</th>
-      <th>vertical_levels</th>
       <th>frequency</th>
+      <th>variables</th>
       <th>path</th>
     </tr>
   </thead>
@@ -444,81 +464,56 @@
       <th>0</th>
       <td>ocn</td>
       <td>pop.h</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>VVEL</td>
-      <td>0022-01</td>
-      <td>0022-12</td>
-      <td>002201-002212</td>
-      <td>Velocity in grid-y direction</td>
-      <td>centimeter/s</td>
-      <td>1.0</td>
+      <td>0001-01</td>
+      <td>b1850.f19_g17.validation_mct.002</td>
+      <td>2</td>
       <td>month_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['UVEL', 'UVEL2', 'VVEL', 'VVEL2', 'TEMP', 'dT...</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
       <th>1</th>
       <td>ocn</td>
       <td>pop.h</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>Jint_100m_ALK_ALT_CO2</td>
-      <td>0003-01</td>
-      <td>0003-12</td>
-      <td>000301-000312</td>
-      <td>Alkalinity, Alternative CO2 Source Sink Term V...</td>
-      <td>meq/m^3 cm/s</td>
-      <td>1.0</td>
+      <td>0001-02</td>
+      <td>b1850.f19_g17.validation_mct.002</td>
+      <td>2</td>
       <td>month_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['UVEL', 'UVEL2', 'VVEL', 'VVEL2', 'TEMP', 'dT...</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>ocn</td>
       <td>pop.h</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>POC_PROD</td>
-      <td>0011-01</td>
-      <td>0011-12</td>
-      <td>001101-001112</td>
-      <td>POC Production</td>
-      <td>mmol/m^3/s</td>
-      <td>1.0</td>
+      <td>0001-03</td>
+      <td>b1850.f19_g17.validation_mct.002</td>
+      <td>2</td>
       <td>month_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['UVEL', 'UVEL2', 'VVEL', 'VVEL2', 'TEMP', 'dT...</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ocn</td>
       <td>pop.h</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>ALK_ALT_CO2</td>
-      <td>0033-01</td>
-      <td>0033-12</td>
-      <td>003301-003312</td>
-      <td>Alkalinity, Alternative CO2</td>
-      <td>meq/m^3</td>
-      <td>1.0</td>
+      <td>0001-04</td>
+      <td>b1850.f19_g17.validation_mct.002</td>
+      <td>2</td>
       <td>month_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['UVEL', 'UVEL2', 'VVEL', 'VVEL2', 'TEMP', 'dT...</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
       <th>4</th>
       <td>ocn</td>
       <td>pop.h</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>CaCO3_PROD</td>
-      <td>0029-01</td>
-      <td>0029-12</td>
-      <td>002901-002912</td>
-      <td>CaCO3 Production</td>
-      <td>mmol/m^3/s</td>
-      <td>1.0</td>
+      <td>0001-05</td>
+      <td>b1850.f19_g17.validation_mct.002</td>
+      <td>2</td>
       <td>month_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['UVEL', 'UVEL2', 'VVEL', 'VVEL2', 'TEMP', 'dT...</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
       <th>...</th>
@@ -530,96 +525,67 @@
       <td>...</td>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
-      <th>16023</th>
-      <td>ice</td>
-      <td>cice.h1</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>dvidtd_d</td>
-      <td>0029-01-01</td>
-      <td>0029-12-31</td>
-      <td>00290101-00291231</td>
-      <td>volume tendency dynamics</td>
-      <td>cm/day</td>
-      <td>1.0</td>
+      <th>11098</th>
+      <td>ocn</td>
+      <td>pop.h.nday1</td>
+      <td>0100-09-01</td>
+      <td>b1850.f19_g17.validation_nuopc.004</td>
+      <td>4</td>
       <td>day_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['SST', 'SST2', 'SSS', 'HMXL_DR_2', 'XMXL_2']</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
-      <th>16024</th>
-      <td>ice</td>
-      <td>cice.h1</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>hi_d</td>
-      <td>0007-01-01</td>
-      <td>0007-12-31</td>
-      <td>00070101-00071231</td>
-      <td>grid cell mean ice thickness</td>
-      <td>m</td>
-      <td>1.0</td>
+      <th>11099</th>
+      <td>ocn</td>
+      <td>pop.h.nday1</td>
+      <td>0100-10-01</td>
+      <td>b1850.f19_g17.validation_nuopc.004</td>
+      <td>4</td>
       <td>day_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['SST', 'SST2', 'SSS', 'HMXL_DR_2', 'XMXL_2']</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
-      <th>16025</th>
-      <td>ice</td>
-      <td>cice.h1</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>hi_d</td>
-      <td>0034-01-01</td>
-      <td>0034-12-31</td>
-      <td>00340101-00341231</td>
-      <td>grid cell mean ice thickness</td>
-      <td>m</td>
-      <td>1.0</td>
+      <th>11100</th>
+      <td>ocn</td>
+      <td>pop.h.nday1</td>
+      <td>0100-11-01</td>
+      <td>b1850.f19_g17.validation_nuopc.004</td>
+      <td>4</td>
       <td>day_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['SST', 'SST2', 'SSS', 'HMXL_DR_2', 'XMXL_2']</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
-      <th>16026</th>
-      <td>ice</td>
-      <td>cice.h1</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>dvidtt_d</td>
-      <td>0034-01-01</td>
-      <td>0034-12-31</td>
-      <td>00340101-00341231</td>
-      <td>volume tendency thermo</td>
-      <td>cm/day</td>
-      <td>1.0</td>
+      <th>11101</th>
+      <td>ocn</td>
+      <td>pop.h.nday1</td>
+      <td>0100-12-01</td>
+      <td>b1850.f19_g17.validation_nuopc.004</td>
+      <td>4</td>
       <td>day_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <td>['SST', 'SST2', 'SSS', 'HMXL_DR_2', 'XMXL_2']</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
     <tr>
-      <th>16027</th>
-      <td>ice</td>
-      <td>cice.h1</td>
-      <td>g.e22.G1850ECO_JRA_HR.TL319_t13.004</td>
-      <td>4.0</td>
-      <td>dvidtt_d</td>
-      <td>0031-01-01</td>
-      <td>0031-12-31</td>
-      <td>00310101-00311231</td>
-      <td>volume tendency thermo</td>
-      <td>cm/day</td>
-      <td>1.0</td>
-      <td>day_1</td>
-      <td>/glade/campaign/cesm/development/bgcwg/project...</td>
+      <th>11102</th>
+      <td>ocn</td>
+      <td>pop.h</td>
+      <td>once</td>
+      <td>b1850.f19_g17.validation_nuopc.004</td>
+      <td>4</td>
+      <td>once</td>
+      <td>['REGION_BOX3D', 'TIDAL_QE_2D', 'VERTICAL_FUNC...</td>
+      <td>/glade/scratch/hannay/archive/b1850.f19_g17.va...</td>
     </tr>
   </tbody>
 </table>
-<p>16028 rows × 13 columns</p>
+<p>11103 rows × 8 columns</p>
 </div></div></div>
+</div>
 </div>
 <div class="toctree-wrapper compound">
 </div>
