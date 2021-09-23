@@ -18,6 +18,7 @@ dependencies:
     - panel
     - matplotlib
     - jupyterlab
-    - pip
-    - pip:
-      - ecgtools
+    - ecgtools
+    - geoviews
+    - nbterm
+    - nbformat
